@@ -30,5 +30,6 @@ def criar_tabelas():
     )
     """)
 
+
     conn.commit()
     conn.close()

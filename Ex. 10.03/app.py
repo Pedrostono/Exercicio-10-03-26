@@ -1,34 +1,35 @@
+import tkinter as tk
+from home import HP
+from adproduto import adproduto
+from listar import listagem
 from database import criar_tabelas
-from models import adicionar_produto, listar_produtos
+from deletar import delproduto
+from models import adicionar_produto, listar_produtos, deletar_produtos, verificar_produto
 
-def menu():
-    while True:
-        print("\n--- LOJA VIRTUAL ---")
-        print("1 - Adicionar produto")
-        print("2 - Listar produtos")
-        print("0 - Sair")
+class App(tk.Tk):
+    def __init__(self):
+        super().__init__()
+        self.title("trocinho")
+        self.geometry("400x300")
 
-        op = input("Escolha: ")
+        container = tk.Frame(self)
+        container.pack(fill="both", expand=True)
 
-        if op == "1":
-            nome = input("Nome: ")
-            descricao = input("Descrição: ")
-            preco = float(input("Preço: "))
-            estoque = int(input("Estoque: "))
+        self.frames = {}
 
-            adicionar_produto(nome, descricao, preco, estoque)
-            print("Produto cadastrado!")
+        for F in (HP, adproduto, listagem, delproduto):
+            page_name = F.__name__
+            frame = F(container, self)
+            self.frames[page_name] = frame
+            frame.grid(row=0, column=0, sticky="nsew")
 
-        elif op == "2":
-            produtos = listar_produtos()
+        self.mostrar_frame("HP")
 
-            for p in produtos:
-                print(p)
-
-        elif op == "0":
-            break
+    def mostrar_frame(self, page_name):
+        frame = self.frames[page_name]
+        frame.tkraise()
 
 
 if __name__ == "__main__":
-    criar_tabelas()
-    menu()
+    app = App()
+    app.mainloop() 
