@@ -1,35 +1,34 @@
-import tkinter as tk
-from home import HP
-from adproduto import adproduto
-from listar import listagem
+from flask import Flask, render_template, request, redirect
 from database import criar_tabelas
-from deletar import delproduto
-from models import adicionar_produto, listar_produtos, deletar_produtos, verificar_produto
+from models import listar_produtos, deletar_produtos
 
-class App(tk.Tk):
-    def __init__(self):
-        super().__init__()
-        self.title("trocinho")
-        self.geometry("400x300")
+app = Flask(__name__)
 
-        container = tk.Frame(self)
-        container.pack(fill="both", expand=True)
+# cria as tabelas ao iniciar
+criar_tabelas()
 
-        self.frames = {}
-
-        for F in (HP, adproduto, listagem, delproduto):
-            page_name = F.__name__
-            frame = F(container, self)
-            self.frames[page_name] = frame
-            frame.grid(row=0, column=0, sticky="nsew")
-
-        self.mostrar_frame("HP")
-
-    def mostrar_frame(self, page_name):
-        frame = self.frames[page_name]
-        frame.tkraise()
+@app.route('/')
+def home():
+    return render_template('home.html')
 
 
-if __name__ == "__main__":
-    app = App()
-    app.mainloop() 
+@app.route('/produtos')
+def produtos():
+    filtro = request.args.get('filtro')
+
+    produtos = listar_produtos()
+
+    if filtro:
+        produtos = [p for p in produtos if filtro.lower() in p[1].lower()]
+
+    return render_template('produtos.html', produtos=produtos)
+
+
+@app.route('/deletar/<int:id>')
+def deletar(id):
+    deletar_produtos(id)
+    return redirect('/produtos')
+
+
+if __name__ == '__main__':
+    app.run(debug=True)
