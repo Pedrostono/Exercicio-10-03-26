@@ -31,6 +31,18 @@ def criar_tabelas():
     )
     """)
 
+    cursor.execute("""
+    CREATE TABLE IF NOT EXISTS usuario (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        nome TEXT NOT NULL CHECK (nome LIKE '% %'),
+        cpf TEXT UNIQUE NOT NULL,
+        email TEXT NOT NULL,
+        tel TEXT,
+        senha TEXT NOT NULL,
+        status INTEGER DEFAULT 1,
+        cargo TEXT
+    )
+    """)
 
     conn.commit()
     conn.close()

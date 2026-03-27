@@ -17,6 +17,7 @@
       <tr>
         <th>ID</th>
         <th>Nome</th>
+        <th>Descrição</th>
         <th>Preço</th>
         <th>Estoque</th>
         <th>Ação</th>
@@ -24,6 +25,7 @@
 
       {% for produto in produtos %}
       <tr>
+        <td>{{ produto.id }}</td>
         <td>{{ produto.nome }}</td>
         <td>{{ produto.descricao }}</td>
         <td>{{ produto.preco }}</td>
@@ -38,6 +40,6 @@
     </table>
 
     <br />
-    <a href="/">Voltar</a>
+    <a href="/home">Voltar</a>
   </body>
 </html>

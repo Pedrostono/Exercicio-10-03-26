@@ -1,4 +1,31 @@
 from database import conectar
+import sqlite3
+
+def inserir_usuario(nome, cpf, tel, email, senha, cargo, status):
+    conn = sqlite3.connect('loja.db')
+    cursor = conn.cursor()
+
+    cursor.execute(""" 
+        INSERT INTO usuario (nome, cpf, tel, email, senha, status, cargo)
+        VALUES(?,?,?,?,?,?,?)
+    """, (nome, cpf, tel, email, senha, status, cargo))
+
+    conn.commit()
+    conn.close()
+
+
+def validar_usuario(email, senha):
+    conn = sqlite3.connect('loja.db')
+    cursor = conn.cursor()
+
+    cursor.execute("""
+    SELECT * FROM usuario
+    WHERE email = ? AND senha = ? """, (email, senha))
+
+    usuario = cursor.fetchone()
+    conn.close()
+
+    return usuario
 
 def adicionar_produto(nome, descricao, preco, estoque):
     conn = conectar()

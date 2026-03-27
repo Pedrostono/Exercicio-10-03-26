@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Adicionar Itens</title>
+</head>
+<body>
+    <h1>Adicione produtos</h1>
+
+    {% if msg %}
+        <p style="color:green;">{{ msg }}</p>
+    {% endif %}
+
+
+    <form method="POST" action="/adicionar">
+        <ul>
+            <li>
+                <label for="prodnome">Nome:</label>
+                <input type="text" id="prodnome" name="prodnome" required>
+            </li>
+            <li>
+                <label for="proddescricao">Descrição:</label>
+                <input type="text" id="proddescricao" name="proddescricao">
+            </li>
+            <li>
+                <label for="prodvalor">Valor:</label>
+                <input type="number" id="prodvalor" name="prodvalor" step="0.01" placeholder="0,00" required>
+            </li>
+            <li>
+                <label for="prodestoque">Estoque:</label>
+                <input type="number" id="prodestoque" name="prodestoque" step="1" min="0" placeholder="0" required>
+            </li>
+        </ul>
+        <input type="submit" value="Adicionar Produto">
+    </form>
+
+    <br />
+    <a href="/home">Voltar</a>
+  </body>
+</body>
+</html>

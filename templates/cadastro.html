@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+    <head>
+        <meta charset="UTF-8">
+        <title>Cadastro</title>
+    </head>
+    <body>
+        <h1>Olá! Faça seu cadastro.</h1>
+        <form method="POST">
+            <input type="text" name="nomeinp" placeholder="insira seu nome e sobrenome, sim" required/><br>
+            <input type="text" name="telinp" placeholder="insira seu telefone, sim" required/><br>
+            <input type="text" name="cpfinp" placeholder="insira seu CPF, sim" required/><br>
+            <input type="text" name="emailinp" placeholder="insira seu email, sim" required/><br>
+            <input type="password" name="senhainp" placeholder="Digite sua senha, sim" required/><br>
+            <select name="status" required>
+                <option value="">qual o seu status?</option>
+                <option value="1">ativo</option>
+                <option value="0">inativo</option>
+            </select><br>
+            <input type="text" name="cargoinp" placeholder="qual seu cargo?" required/>
+            <input type="submit" value="Cadastrar">
+        </form>
+        <h2>Já tem uma conta?</h2>
+        <a href="/">Login</a>
+    </body>
+</html>
