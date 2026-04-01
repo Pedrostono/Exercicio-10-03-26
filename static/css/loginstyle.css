@@ -1,0 +1,103 @@
+@import url('https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600&display=swap');
+
+body {
+    margin: 0;
+    height: 100vh;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(to bottom, #aeefff, #1bcece);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+h1 {
+    color: #0a4f6d;
+    font-size: 2.5rem;
+    text-shadow: 0 0 10px rgba(255,255,255,0.8);
+}
+
+
+form {
+    background: rgba(255, 255, 255, 0.6);
+    backdrop-filter: blur(12px);
+    border-radius: 20px;
+    padding: 25px;
+    box-shadow: 
+        0 8px 20px rgba(0,0,0,0.1),
+        inset 0 0 10px rgba(255,255,255,0.5);
+    border: 1px solid rgba(255,255,255,0.8);
+}
+
+
+input {
+    display: block;
+    width: 250px;
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 12px;
+    border: 1px solid #bdefff;
+    outline: none;
+    background: rgba(255,255,255,0.8);
+    box-shadow: inset 0 0 5px rgba(0,0,0,0.05);
+    transition: 0.3s;
+}
+
+input:focus {
+    border-color: #4fd1ff;
+    box-shadow: 0 0 10px #aeefff;
+}
+
+input[type="submit"] {
+    background: linear-gradient(to bottom, #6fdcff, #3bb3e0);
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    border: none;
+    box-shadow: 
+        inset 0 1px 0 rgba(255,255,255,0.8),
+        0 4px 10px rgba(0,0,0,0.1);
+}
+
+input[type="submit"]:hover {
+    background: linear-gradient(to bottom, #8fe8ff, #4cc6f0);
+}
+
+
+h2 {
+    margin-top: 20px;
+    color: #0a4f6d;
+}
+
+a {
+    color: #dcf8ff;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+body::before,
+body::after {
+    content: "";
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.4);
+    box-shadow: inset 0 0 10px rgba(255,255,255,0.8);
+}
+
+body::before {
+    width: 150px;
+    height: 150px;
+    top: 10%;
+    left: 20%;
+}
+
+body::after {
+    width: 100px;
+    height: 100px;
+    bottom: 15%;
+    right: 20%;
+}

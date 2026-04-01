@@ -1,0 +1,129 @@
+@import url('https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600&display=swap');
+
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(to bottom, #aeefff, #1bcece);
+    background-attachment: fixed;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 30px;
+}
+
+h1 {
+    color: #0a4f6d;
+    font-size: 2.5rem;
+    text-shadow: 0 0 10px rgba(255,255,255,0.9);
+}
+
+form {
+    margin-top: 10px;
+    background: rgba(255,255,255,0.6);
+    padding: 15px;
+    border-radius: 15px;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+input[type="text"] {
+    padding: 8px;
+    border-radius: 10px;
+    border: 1px solid #bdefff;
+    outline: none;
+    background: rgba(255,255,255,0.9);
+}
+
+button {
+    padding: 8px 12px;
+    border-radius: 10px;
+    border: none;
+    background: linear-gradient(to bottom, #6fdcff, #3bb3e0);
+    color: white;
+    cursor: pointer;
+    margin-left: 5px;
+    box-shadow: 
+        inset 0 1px 0 rgba(255,255,255,0.8),
+        0 3px 8px rgba(0,0,0,0.1);
+    transition: 0.2s;
+}
+
+button:hover {
+    background: linear-gradient(to bottom, #8fe8ff, #4cc6f0);
+    transform: scale(1.05);
+}
+
+table {
+    margin-top: 20px;
+    border-collapse: collapse;
+    background: rgba(255,255,255,0.6);
+    backdrop-filter: blur(12px);
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+}
+
+th {
+    background: linear-gradient(to bottom, #6fdcff, #3bb3e0);
+    color: white;
+    padding: 10px;
+    text-align: center;
+}
+
+td {
+    padding: 10px;
+    text-align: center;
+    color: #0a4f6d;
+}
+
+tr:nth-child(even) {
+    background: rgba(255,255,255,0.4);
+}
+
+tr:hover {
+    background: rgba(173, 235, 255, 0.6);
+}
+
+td button {
+    background: linear-gradient(to bottom, #ff9aa2, #ff5c5c);
+}
+
+td button:hover {
+    background: linear-gradient(to bottom, #ffb3b8, #ff6b6b);
+}
+
+a {
+    margin-top: 15px;
+    color: #dcf8ff;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+body::before,
+body::after {
+    content: "";
+    position: fixed;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.4);
+    box-shadow: inset 0 0 10px rgba(255,255,255,0.8);
+    z-index: -1;
+}
+
+body::before {
+    width: 180px;
+    height: 180px;
+    top: 5%;
+    left: 10%;
+}
+
+body::after {
+    width: 120px;
+    height: 120px;
+    bottom: 10%;
+    right: 10%;
+}
