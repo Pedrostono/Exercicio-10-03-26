@@ -1,96 +1,63 @@
-@import url('https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600&display=swap');
-
 body {
-    margin: 0;
-    height: 100vh;
-    font-family: 'Segoe UI', sans-serif;
-    background: linear-gradient(to bottom, #aeefff, #1bcece);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #1a1a1a;
+  color: #eaeaea;
 }
 
 .container {
-    background: rgba(255,255,255,0.6);
-    backdrop-filter: blur(15px);
-    border-radius: 25px;
-    padding: 40px;
-    text-align: center;
-    box-shadow: 
-        0 10px 30px rgba(0,0,0,0.15),
-        inset 0 0 15px rgba(255,255,255,0.6);
-    border: 1px solid rgba(255,255,255,0.8);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  text-align: center;
 }
 
-
 h1 {
-    margin: 0;
-    font-size: 2.8rem;
-    color: #0a4f6d;
-    text-shadow: 0 0 10px rgba(255,255,255,0.9);
+  font-size: 34px;
+  font-weight: 600;
+  color: #4caf50;
+  margin-bottom: 10px;
 }
 
 .subtitle {
-    color: #3c7c94;
-    margin-bottom: 30px;
+  color: #9e9e9e;
+  margin-bottom: 40px;
 }
 
-.menu a {
-    text-decoration: none;
+.menu {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 320px;
 }
 
 button {
-    width: 250px;
-    margin: 10px;
-    padding: 12px;
-    border-radius: 15px;
-    border: none;
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-    background: linear-gradient(to bottom, #6fdcff, #3bb3e0);
-    color: white;
-    box-shadow: 
-        inset 0 1px 0 rgba(255,255,255,0.8),
-        0 5px 15px rgba(0,0,0,0.15);
-    transition: 0.3s;
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 10px;
+  background: #4caf50;
+  color: white;
+  font-size: 15px;
+  cursor: pointer;
+  transition: background 0.2s ease, transform 0.1s ease;
 }
-
 
 button:hover {
-    transform: scale(1.05);
-    background: linear-gradient(to bottom, #8fe8ff, #4cc6f0);
+  background: #66bb6a;
 }
 
+button:active {
+  transform: scale(0.97);
+}
 
 .logout {
-    background: linear-gradient(to bottom, #ff9aa2, #ff5c5c);
+  background: #616161;
 }
 
 .logout:hover {
-    background: linear-gradient(to bottom, #ffb3b8, #ff6b6b);
-}
-
-body::before,
-body::after {
-    content: "";
-    position: absolute;
-    border-radius: 50%;
-    background: rgba(255,255,255,0.4);
-    box-shadow: inset 0 0 10px rgba(255,255,255,0.8);
-}
-
-body::before {
-    width: 180px;
-    height: 180px;
-    top: 10%;
-    left: 15%;
-}
-
-body::after {
-    width: 120px;
-    height: 120px;
-    bottom: 15%;
-    right: 15%;
+  background: #757575;
 }

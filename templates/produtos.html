@@ -1,20 +1,20 @@
 <!doctype html>
-<html>
+<html lang="pt-BR">
   <head>
+    <meta charset="UTF-8">
     <title>Produtos</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/produtosstyle.css') }}">
   </head>
   <body>
+
     <h1>Lista de Produtos</h1>
 
     <form method="GET">
-      <input type="text" name="filtro" placeholder="Buscar produto..." />
+      <input type="text" name="filtro" placeholder="Buscar produto..." value="{{ request.args.get('filtro', '') }}">
       <button type="submit">Filtrar</button>
     </form>
 
-    <br />
-
-    <table border="1">
+    <table>
       <tr>
         <th>ID</th>
         <th>Nome</th>
@@ -29,18 +29,18 @@
         <td>{{ produto.id }}</td>
         <td>{{ produto.nome }}</td>
         <td>{{ produto.descricao }}</td>
-        <td>{{ produto.preco }}</td>
+        <td>R$ {{ produto.preco }}</td>
         <td>{{ produto.estoque }}</td>
         <td>
-          <a href="/deletar/{{ produto[0] }}">
-            <button>Deletar</button>
-          </a>
+          <form action="/deletar/{{ produto.id }}" method="GET">
+            <button type="submit">Deletar</button>
+          </form>
         </td>
       </tr>
       {% endfor %}
     </table>
 
-    <br />
     <a href="/home">Voltar</a>
+
   </body>
 </html>

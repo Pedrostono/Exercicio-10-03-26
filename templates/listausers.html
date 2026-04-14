@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8">
+    <title>Lista de Usuários</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/listausersstyle.css') }}">
+  </head>
+  <body>
+
+    <h1>Lista de Usuários</h1>
+
+    <form method="GET">
+      <input type="text" name="filtro" placeholder="Buscar usuário..." value="{{ request.args.get('filtro', '') }}">
+      <button type="submit">Filtrar</button>
+    </form>
+
+    <table>
+      <tr>
+        <th>ID</th>
+        <th>Nome</th>
+        <th>CPF</th>
+        <th>Email</th>
+        <th>Senha</th>
+        <th>Telefone</th>
+        <th>Status</th>
+        <th>Cargo</th>
+        <th>Ação</th>
+      </tr>
+
+      {% for usuario in usuarios %}
+      <tr>
+        <td>{{ usuario.id }}</td>
+        <td>{{ usuario.nome }}</td>
+        <td>{{ usuario.cpf }}</td>
+        <td>{{ usuario.email }}</td>
+        <td>{{ usuario.senha }}</td>
+        <td>{{ usuario.tel }}</td>
+        <td>{{ usuario.status }}</td>
+        <td>{{ usuario.cargo }}</td>
+        <td>
+          <form action="/deletar_usuario/{{ usuario.id }}" method="POST">
+            <button type="submit">Deletar</button>
+          </form>
+        </td>
+      </tr>
+      {% endfor %}
+    </table>
+
+    <a href="/menuusuarios">Voltar</a>
+
+  </body>
+</html>

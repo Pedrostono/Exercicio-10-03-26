@@ -1,18 +1,33 @@
 <!DOCTYPE html>
-<html lang="pt-br">
-    <head>
-        <meta charset="UTF-8">
-        <title>Login</title>
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/loginstyle.css') }}">
-    </head>
-    <body>
-        <h1>Faça seu logon</h1>
-       <form method="POST">
-             <input type="text" name="emailinp" placeholder="Email" required/><br>
-             <input type="password" name="senhainp" placeholder="Senha" required/><br>
-                <input type="submit" value="Entrar">
-        </form>
-        <h2>Não tem uma conta?</h2><br>
-        <a href="/cadastro">Cadastre-se</a>
-    </body>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/loginstyle.css') }}">
+</head>
+
+<body>
+
+    <h1>Entrar no sistema</h1>
+
+    <form method="POST">
+        <ul>
+            <li>
+                <label>Email</label>
+                <input type="text" name="emailinp" placeholder="seu@email.com" required>
+            </li>
+
+            <li>
+                <label>Senha</label>
+                <input type="password" name="senhainp" placeholder="Digite sua senha" required>
+            </li>
+        </ul>
+
+        <input type="submit" value="Entrar">
+    </form>
+
+    <p>Não tem uma conta?</p>
+    <a href="/cadastro">Criar conta</a>
+
+</body>
 </html>
