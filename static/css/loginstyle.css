@@ -83,3 +83,23 @@ a {
 a:hover {
   text-decoration: underline;
 }
+
+.toast {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: #ff4d4d;
+    color: white;
+    padding: 15px 20px;
+    border-radius: 8px;
+    font-weight: bold;
+    box-shadow: 0 0 10px rgba(0,0,0,0.2);
+    opacity: 0;
+    transform: translateX(100%);
+    transition: all 0.5s ease;
+}
+
+.toast.show {
+    opacity: 1;
+    transform: translateX(0);
+}

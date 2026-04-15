@@ -49,19 +49,27 @@ def inserir_usuario(nome, cpf, tel, email, senha, status, cargo):
     conn.close()
     return True
 
-def validar_usuario(email, senha):
-    conn = sqlite3.connect('loja.db')
+def registrar(usuario):
+    conn = conectar()
     cursor = conn.cursor()
 
-    cursor.execute("SELECT * FROM usuario WHERE email = ?", (email,))
-    usuario = cursor.fetchone()
+    cursor.execute("""
+    INSERT INTO relatorio (usuario_id, nome_usuario)
+    VALUES (?, ?)
+    """, (usuario["id"], usuario["nome"]))
+
+    conn.commit()
     conn.close()
 
-    if usuario and verificar_senha(senha, usuario[5]):
-        return usuario
+def listar_relatorios():
+    conn = conectar()
+    cursor = conn.cursor()
 
-    return None
+    cursor.execute("SELECT * FROM relatorio ORDER BY id DESC")
+    dados = cursor.fetchall()
 
+    conn.close()
+    return dados
 
 def adicionar_produto(nome, descricao, preco, estoque):
     conn = sqlite3.connect('loja.db')
@@ -74,6 +82,22 @@ def adicionar_produto(nome, descricao, preco, estoque):
 
     conn.commit()
     conn.close()
+
+def validar_usuario(email, senha):
+    conn = sqlite3.connect('loja.db')
+    conn.row_factory = sqlite3.Row
+    cursor = conn.cursor()
+
+    cursor.execute("SELECT * FROM usuario WHERE email = ?", (email,))
+    usuario = cursor.fetchone()
+
+    conn.close()
+
+    if usuario and verificar_senha(senha, usuario["senha"]):
+        registrar(usuario)
+        return usuario
+
+    return None
 
 
 def listar_produtos():
@@ -113,7 +137,7 @@ def listar_user():
 
     cursor.execute("SELECT * FROM usuario")
     usuarios = cursor.fetchall()
-
+    
     conn.close()
     return usuarios
 
@@ -123,6 +147,9 @@ def deletar_users(id):
     cursor = conn.cursor()
 
     cursor.execute("DELETE FROM usuario WHERE id = ?", (id,))
+
+
+
 
     conn.commit()
     conn.close()

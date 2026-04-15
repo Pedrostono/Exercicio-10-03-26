@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8">
+    <title>Relatório de Acessos</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/listausersstyle.css') }}">
+  </head>
+
+  <body>
+
+    <h1>Relatório de Acessos o</h1>
+
+    <table border="1">
+      <tr>
+        <th>ID Usuário</th>
+        <th>Nome</th>
+        <th>Data</th>
+        <th>Hora</th>
+      </tr>
+
+      {% for r in relatorios %}
+      <tr>
+        <td>{{ r.usuario_id }}</td>
+        <td>{{ r.nome_usuario }}</td>
+        <td>{{ r.data }}</td>
+        <td>{{ r.hora }}</td>
+      </tr>
+      {% endfor %}
+    </table>
+
+    <br>
+
+    <a href="/menuusuarios">Voltar</a>
+
+  </body>
+</html>

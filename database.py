@@ -2,10 +2,14 @@ import sqlite3
 
 DB_NAME = "loja.db"
 
+
+
 def conectar():
     conn = sqlite3.connect(DB_NAME)
     conn.row_factory = sqlite3.Row
     return conn
+
+
 
 
 def criar_tabelas():
@@ -43,6 +47,17 @@ def criar_tabelas():
         cargo TEXT
     )
     """)
+
+    cursor.execute("""
+CREATE TABLE IF NOT EXISTS relatorio (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    usuario_id INTEGER NOT NULL,
+    nome_usuario TEXT NOT NULL,
+    data DATE DEFAULT (DATE('now','localtime')),
+    hora TIME DEFAULT (TIME('now','localtime')),
+    FOREIGN KEY(usuario_id) REFERENCES usuario(id)
+)
+""")
 
     conn.commit()
     conn.close()

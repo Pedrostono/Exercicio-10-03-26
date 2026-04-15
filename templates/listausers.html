@@ -35,7 +35,7 @@
         <td>{{ usuario.email }}</td>
         <td>{{ usuario.senha }}</td>
         <td>{{ usuario.tel }}</td>
-        <td>{{ usuario.status }}</td>
+        <td>{%if usuario.status == 0%}Inativo{%else%}Ativo{%endif%}</td>
         <td>{{ usuario.cargo }}</td>
         <td>
           <form action="/deletar_usuario/{{ usuario.id }}" method="POST">

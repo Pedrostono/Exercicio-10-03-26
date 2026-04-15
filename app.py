@@ -1,10 +1,6 @@
-from flask import Flask, render_template, request, redirect, session
+from flask import Flask, render_template, request, redirect, session, flash
 from database import criar_tabelas
-from models import (
-    listar_produtos, deletar_produtos, inserir_usuario,
-    validar_usuario, adicionar_produto, limpar_texto,
-    listar_user, deletar_users
-)
+from models import (listar_produtos, deletar_produtos, inserir_usuario, validar_usuario, adicionar_produto, limpar_texto, listar_user, deletar_users, registrar, listar_relatorios)
 
 app = Flask(__name__)
 app.secret_key = "angeleyes"
@@ -21,9 +17,11 @@ def login():
         usuario = validar_usuario(email, senha)
         if usuario:
             session['usuario_id'] = usuario[0]
+            registrar(usuario)
             return redirect('/home')
         else:
-            return "Email ou senha incorretos!"
+            flash ("Email ou senha incorretos!")
+            return redirect('/')
 
     return render_template('login.html')
 
@@ -34,6 +32,15 @@ def home():
         return redirect('/')
     return render_template('home.html')
 
+
+@app.route('/relatorio')
+def relatorio():
+    if 'usuario_id' not in session:
+        return redirect('/')
+
+    dados = listar_relatorios()
+
+    return render_template('relatorio.html', relatorios=dados)
 
 @app.route('/cadastro', methods=['GET', 'POST'])
 def cadastro():
@@ -48,7 +55,6 @@ def cadastro():
 
         status = int(status) if status else None
 
-        # ✅ ORDEM CORRETA
         inserir_usuario(nome, cpf, tel, email, senha, status, cargo)
 
         return redirect('/')
