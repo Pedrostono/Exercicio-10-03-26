@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request, redirect, session, flash
 from database import criar_tabelas
 from models import (listar_produtos, deletar_produtos, inserir_usuario, validar_usuario, adicionar_produto, limpar_texto, listar_user, deletar_users, registrar, listar_relatorios)
+from models import criar_reserva, cancelar_reserva, produto_reservado
 
 app = Flask(__name__)
 app.secret_key = "angeleyes"
@@ -68,12 +69,19 @@ def produtos():
         return redirect('/')
 
     filtro = request.args.get('filtro')
-    produtos = listar_produtos()
+    lista = listar_produtos()
 
     if filtro:
-        produtos = [p for p in produtos if filtro.lower() in p['nome'].lower()]
+        lista = [p for p in lista if filtro.lower() in p['nome'].lower()]
 
-    return render_template('produtos.html', produtos=produtos)
+    # Para cada produto, verifica se está reservado e por quem
+    reservas = {}
+    for p in lista:
+        reserva = produto_reservado(p['id'])
+        if reserva:
+            reservas[p['id']] = dict(reserva)
+
+    return render_template('produtos.html', produtos=lista, reservas=reservas, usuario_id=session['usuario_id'])
 
 
 @app.route('/menuusuarios')
@@ -160,6 +168,30 @@ def adicionar():
 def logout():
     session.clear()
     return redirect('/')
+
+@app.route('/reservar/<int:id>', methods=['POST'])
+def reservar(id):
+    if 'usuario_id' not in session:
+        return redirect('/')
+
+    sucesso = criar_reserva(id, session['usuario_id'])
+
+    if sucesso:
+        flash("Produto reservado por 15 minutos!")
+    else:
+        flash("Esse produto já está reservado por outro usuário.")
+
+    return redirect('/produtos')
+
+
+@app.route('/cancelar_reserva/<int:id>', methods=['POST'])
+def cancelar(id):
+    if 'usuario_id' not in session:
+        return redirect('/'  )
+
+    cancelar_reserva(id, session['usuario_id'])
+    flash("Reserva cancelada.")
+    return redirect('/produtos')
 
 
 if __name__ == '__main__':

@@ -58,6 +58,18 @@ CREATE TABLE IF NOT EXISTS relatorio (
     FOREIGN KEY(usuario_id) REFERENCES usuario(id)
 )
 """)
+    
+    cursor.execute("""
+CREATE TABLE IF NOT EXISTS reservas (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    produto_id INTEGER NOT NULL,
+    usuario_id INTEGER NOT NULL,
+    criado_em DATETIME DEFAULT (DATETIME('now', 'localtime')),
+    expira_em DATETIME NOT NULL,
+    FOREIGN KEY(produto_id) REFERENCES produtos(id),
+    FOREIGN KEY(usuario_id) REFERENCES usuario(id)
+)
+""")
 
     conn.commit()
     conn.close()

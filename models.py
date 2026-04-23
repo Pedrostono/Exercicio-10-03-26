@@ -3,6 +3,7 @@ from database import conectar
 import sqlite3
 import hashlib
 import re
+from datetime import datetime, timedelta
 
 def limpar_texto(texto):
     return re.sub(r'<.*?>', '', texto)
@@ -148,8 +149,54 @@ def deletar_users(id):
 
     cursor.execute("DELETE FROM usuario WHERE id = ?", (id,))
 
+    conn.commit()
+    conn.close()
 
+def produto_reservado(produto_id):
+    """Verifica se um produto está reservado no momento."""
+    conn = conectar()
+    cursor = conn.cursor()
 
+    agora = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+
+    cursor.execute("""
+        SELECT * FROM reservas
+        WHERE produto_id = ? AND expira_em > ?
+    """, (produto_id, agora))
+
+    reserva = cursor.fetchone()
+    conn.close()
+    return reserva  # Retorna a reserva se existir, None se estiver livre
+
+def criar_reserva(produto_id, usuario_id, minutos=15):
+    """Cria uma reserva para o produto, se ele estiver livre."""
+    if produto_reservado(produto_id):
+        return False  # Já está reservado
+
+    conn = conectar()
+    cursor = conn.cursor()
+
+    agora = datetime.now()
+    expira = agora + timedelta(minutes=minutos)
+
+    cursor.execute("""
+        INSERT INTO reservas (produto_id, usuario_id, expira_em)
+        VALUES (?, ?, ?)
+    """, (produto_id, usuario_id, expira.strftime('%Y-%m-%d %H:%M:%S')))
+
+    conn.commit()
+    conn.close()
+    return True
+
+def cancelar_reserva(produto_id, usuario_id):
+    """Cancela a reserva de um produto feita pelo usuário."""
+    conn = conectar()
+    cursor = conn.cursor()
+
+    cursor.execute("""
+        DELETE FROM reservas
+        WHERE produto_id = ? AND usuario_id = ?
+    """, (produto_id, usuario_id))
 
     conn.commit()
     conn.close()

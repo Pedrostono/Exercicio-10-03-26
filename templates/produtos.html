@@ -1,16 +1,23 @@
 <!doctype html>
 <html lang="pt-BR">
   <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
     <title>Produtos</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/produtosstyle.css') }}">
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='css/produtosstyle.css') }}"
+    />
   </head>
   <body>
-
     <h1>Lista de Produtos</h1>
 
     <form method="GET">
-      <input type="text" name="filtro" placeholder="Buscar produto..." value="{{ request.args.get('filtro', '') }}">
+      <input
+        type="text"
+        name="filtro"
+        placeholder="Buscar produto..."
+        value="{{ request.args.get('filtro', '') }}"
+      />
       <button type="submit">Filtrar</button>
     </form>
 
@@ -24,23 +31,33 @@
         <th>Ação</th>
       </tr>
 
-      {% for produto in produtos %}
-      <tr>
-        <td>{{ produto.id }}</td>
-        <td>{{ produto.nome }}</td>
-        <td>{{ produto.descricao }}</td>
-        <td>R$ {{ produto.preco }}</td>
-        <td>{{ produto.estoque }}</td>
-        <td>
-          <form action="/deletar/{{ produto.id }}" method="GET">
-            <button type="submit">Deletar</button>
-          </form>
-        </td>
-      </tr>
+      {% for p in produtos %}
+      <div class="produto">
+        <h3>{{ p['nome'] }}</h3>
+        <p>{{ p['descricao'] }}</p>
+        <p>R$ {{ p['preco'] }}</p>
+        <p>Estoque: {{ p['estoque'] }}</p>
+
+        {% if p['id'] in reservas %} {% set reserva = reservas[p['id']] %} {% if
+        reserva['usuario_id'] == usuario_id %}
+        <!-- É a reserva do próprio usuário logado -->
+        <span>✅ Reservado por você até {{ reserva['expira_em'] }}</span>
+        <form action="/cancelar_reserva/{{ p['id'] }}" method="POST">
+          <button type="submit">Cancelar Reserva</button>
+        </form>
+        {% else %}
+        <!-- Reservado por outra pessoa -->
+        <span>🔒 Reservado até {{ reserva['expira_em'] }}</span>
+        {% endif %} {% else %}
+        <!-- Produto livre para reservar -->
+        <form action="/reservar/{{ p['id'] }}" method="POST">
+          <button type="submit">Reservar</button>
+        </form>
+        {% endif %}
+      </div>
       {% endfor %}
     </table>
 
     <a href="/home">Voltar</a>
-
   </body>
 </html>
